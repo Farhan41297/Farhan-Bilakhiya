@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Simple JavaScript Animation Example for College Project">
+    <title>Simple JavaScript Animation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: #3498db;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transition: background-color 0.5s ease;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #2ecc71;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="box" id="movingBox"></div>
+
+    <button onclick="startAnimation()">Start Animation</button>
+    <button onclick="stopAnimation()">Stop Animation</button>
+
+    <script>
+        // Variables to control animation
+        let box = document.getElementById('movingBox');
+        let animationInterval;
+        let position = 0;
+        let movingRight = true;
+
+        // Function to start the animation
+        function startAnimation() {
+            animationInterval = setInterval(function() {
+                // Move the box
+                if (movingRight) {
+                    position += 2;  // Move to the right
+                    if (position >= window.innerWidth - 100) {  // Change direction at the screen edge
+                        movingRight = false;
+                        box.style.backgroundColor = "#e74c3c";  // Change color to red when moving left
+                    }
+                } else {
+                    position -= 2;  // Move to the left
+                    if (position <= 0) {  // Change direction at the left edge
+                        movingRight = true;
+                        box.style.backgroundColor = "#2ecc71";  // Change color to green when moving right
+                    }
+                }
+
+                // Apply the new position
+                box.style.left = position + 'px';
+            }, 10);  // Refresh every 10ms to create smooth movement
+        }
+
+        // Function to stop the animation
+        function stopAnimation() {
+            clearInterval(animationInterval);  // Stop the animation loop
+        }
+    </script>
+
+</body>
+</html>
